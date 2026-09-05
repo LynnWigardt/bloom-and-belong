@@ -6,6 +6,14 @@ require_once 'db.php';
 
 $page_name = 'Grupper';
 
+$user_id = $_SESSION['user_id'];
+
+$stmt = $pdo->prepare(
+    'SELECT group_id FROM GroupMembers WHERE user_id = ?'
+);
+$stmt->execute([$user_id]);
+$member_groups = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'];
 
@@ -62,10 +70,22 @@ $groups = $pdo->query(
 </form>
 
 <?php foreach ($groups as $group): ?>
-    
-    <p><?php echo htmlspecialchars($group['name']); ?></p>
 
-    <?php endforeach; ?>
+    <p>
+        <?php echo htmlspecialchars($group['name']); ?>
+        <?php if (in_array($group['id'], $member_groups)): ?>
+            - Du är medlem 
+        <?php else: ?>
+            - Inte medlem
+    <form method="POST">
+        <input type="hidden" name="group_id" value="<?php echo $group['id']; ?>">
+        <button type="submit">Ansök om medlemskap</button>
+    </form>
+
+<?php endif; ?>
+    </p>
+
+<?php endforeach; ?>
 
 </body>
 </html>

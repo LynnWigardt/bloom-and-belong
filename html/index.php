@@ -27,6 +27,16 @@ if (isset($_SESSION['user_id'])) {
 </head>
 <body>
 
+<nav>
+        <a href="index.php">Hem</a>
+        <a href="groups.php">Grupper</a>
+    <?php if ($user): ?>
+        <a href="logout.php">Logga ut</a>
+    <?php else: ?>
+        <a href="login.php">Logga in</a>
+    <?php endif; ?>
+</nav>
+
 <h1><?php echo $page_name; ?></h1>
 
     <p>En trygg och mysig plats för kvinnor att mötas, dela intressen och hitta gemenskap</p>
