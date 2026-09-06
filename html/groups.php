@@ -14,27 +14,48 @@ $stmt = $pdo->prepare(
 $stmt->execute([$user_id]);
 $member_groups = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
+$stmt = $pdo->prepare(
+    'SELECT group_id FROM GroupApplications WHERE user_id = ?'
+);
+
+$stmt ->execute([$user_id]);
+
+$application_groups = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $name = $_POST['name'];
+    $name = $_POST['name'] ?? null;
+    $group_id = $_POST['group_id'] ?? null;
 
-    if (empty($name)) {
-        echo 'Du måste ange ett gruppnamn.';
-
-    } else {
+    if ($name) {
         $stmt = $pdo->prepare(
-            'INSERT INTO Groups (name) VALUES (?)'
+        'INSERT INTO Groups (name) VALUES (?)'
         );
 
         $stmt->execute([$name]);
 
-        $group_id = $pdo->lastInsertId();
+        $new_group_id = $pdo->lastInsertId();
 
         $stmt = $pdo->prepare(
-    'INSERT INTO GroupMembers (user_id, group_id) VALUES (?, ?)'
-);
+            'INSERT INTO GroupMembers (user_id, group_id) VALUES (?, ?)'
+        );
 
-$stmt->execute([$_SESSION['user_id'], $group_id]);
+        $stmt->execute([$_SESSION['user_id'], $new_group_id]);
+
         echo 'Gruppen har skapats!';
+
+    }
+
+    if ($group_id) {
+
+        $stmt = $pdo->prepare(
+            'INSERT INTO GroupApplications (user_id, group_id) VALUES (?, ?)'
+        );
+
+        $stmt->execute([$user_id, $group_id]);
+
+        echo 'Din ansökan har skickats!';
+
     }
 }
 
@@ -72,11 +93,16 @@ $groups = $pdo->query(
 <?php foreach ($groups as $group): ?>
 
     <p>
-        <?php echo htmlspecialchars($group['name']); ?>
-        <?php if (in_array($group['id'], $member_groups)): ?>
-            - Du är medlem 
-        <?php else: ?>
-            - Inte medlem
+     <?php echo htmlspecialchars($group['name']); ?>
+     <?php if (in_array($group['id'], $member_groups)): ?>
+    - Du är medlem
+
+    <?php elseif (in_array($group['id'], $application_groups)): ?>
+    - Ansökan skickad
+
+    <?php else: ?>
+    - Inte medlem
+
     <form method="POST">
         <input type="hidden" name="group_id" value="<?php echo $group['id']; ?>">
         <button type="submit">Ansök om medlemskap</button>
@@ -84,7 +110,6 @@ $groups = $pdo->query(
 
 <?php endif; ?>
     </p>
-
 <?php endforeach; ?>
 
 </body>
