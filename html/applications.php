@@ -64,6 +64,14 @@ $applications = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
         <body>
 
+    <nav>
+        <a href="index.php">Hem</a>
+        <a href="groups.php">Grupper</a>
+        <a href="discussions.php">Diskussioner</a>
+        <a href="applications.php">Medlemsansökningar</a>
+        <a href="logout.php">Logga ut</a>
+    </nav>
+
         <h1><?php echo $page_name; ?></h1>
 
         <?php foreach ($applications as $application): ?>

@@ -76,6 +76,14 @@ $groups = $pdo->query(
 
 <body>
 
+<nav>
+    <a href="index.php">Hem</a>
+    <a href="groups.php">Grupper</a>
+    <a href="discussions.php">Diskussioner</a>
+    <a href="applications.php">Medlemsansökningar</a>
+    <a href="logout.php">Logga ut</a>
+</nav>
+
 <h1><?php echo $page_name; ?></h1>
 
 <h2>Skapa en ny grupp</h2>
