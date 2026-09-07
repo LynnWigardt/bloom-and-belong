@@ -30,6 +30,7 @@ if (isset($_SESSION['user_id'])) {
 <nav>
         <a href="index.php">Hem</a>
         <a href="groups.php">Grupper</a>
+        <a href="discussions.php">Diskussioner</a>
         <?php if ($user): ?>
     <a href="applications.php">Medlemsansökningar</a>
 <?php endif; ?>
