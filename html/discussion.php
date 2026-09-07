@@ -31,6 +31,38 @@ if (!$discussion) {
     exit;
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $content = $_POST['content'] ?? null;
+    if (empty($content)) {
+        echo 'Du måste skriva ett inlägg.';
+    } else {
+        $stmt = $pdo->prepare(
+        'INSERT INTO Posts (user_id, discussion_id, content, created_at)
+        VALUES (?, ?, ?, NOW())'
+        );
+
+        $stmt->execute([
+            $user_id,
+            $discussion_id,
+            $content
+        ]);
+
+        echo 'Inlägget har publicerats!';
+    }
+    }
+
+    $stmt = $pdo->prepare(
+    'SELECT Posts.content, Posts.created_at, Users.first_name, Users.last_name
+     FROM Posts
+     JOIN Users ON Posts.user_id = Users.id
+     WHERE Posts.discussion_id = ?
+     ORDER BY Posts.created_at ASC'
+);
+
+$stmt->execute([$discussion_id]);
+
+$posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 
@@ -54,12 +86,39 @@ if (!$discussion) {
         <a href="applications.php">Medlemsansökningar</a>
         <a href="logout.php">Logga ut</a>
     </nav>
-    
+
     <h1><?php echo htmlspecialchars($discussion['subject']); ?></h1>
 
     <p>
         Grupp:
         <?php echo htmlspecialchars($discussion['name']); ?>
     </p>
+
+    <h2>Skriv ett inlägg</h2>
+
+    <form method="POST">
+
+    <textarea name="content" rows="5" cols="40" required></textarea>
+    <br>
+    <button type="submit">Publicera inlägg</button>
+    </form>
+
+<h2>Inlägg</h2>
+<?php foreach ($posts as $post): ?>
+
+<p>
+    <strong>
+        <?php echo htmlspecialchars($post['first_name']); ?>
+        <?php echo htmlspecialchars($post['last_name']); ?>
+    </strong>
+    <br>
+    Skrevs:
+        <?php echo htmlspecialchars($post['created_at']); ?>
+    <br>
+        <?php echo htmlspecialchars($post['content']); ?>
+</p>
+
+<?php endforeach; ?>
+
 </body>
 </html>
