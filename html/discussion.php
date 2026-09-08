@@ -1,6 +1,10 @@
 <?php
 
 session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
 
 require_once 'db.php';
 
@@ -19,10 +23,12 @@ $stmt = $pdo->prepare(
     'SELECT Discussions.id, Discussions.subject, Discussions.created_at, Groups.name
      FROM Discussions
      JOIN Groups ON Discussions.group_id = Groups.id
-     WHERE Discussions.id = ?'
+     JOIN GroupMembers ON Discussions.group_id = GroupMembers.group_id
+     WHERE Discussions.id = ?
+     AND GroupMembers.user_id = ?'
 );
 
-$stmt->execute([$discussion_id]);
+$stmt->execute([$discussion_id, $user_id]);
 
 $discussion = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -73,6 +79,7 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
 
     <title><?php echo htmlspecialchars($discussion['subject']); ?> - Bloom & Belong</title>
 </head>

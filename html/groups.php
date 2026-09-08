@@ -9,13 +9,13 @@ $page_name = 'Grupper';
 $user_id = $_SESSION['user_id'];
 
 $stmt = $pdo->prepare(
-    'SELECT group_id FROM GroupMembers WHERE user_id = ?'
+'SELECT group_id FROM GroupMembers WHERE user_id = ?'
 );
 $stmt->execute([$user_id]);
 $member_groups = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
 $stmt = $pdo->prepare(
-    'SELECT group_id FROM GroupApplications WHERE user_id = ?'
+'SELECT group_id FROM GroupApplications WHERE user_id = ?'
 );
 
 $stmt ->execute([$user_id]);
@@ -26,8 +26,7 @@ $application_groups = $stmt->fetchAll(PDO::FETCH_COLUMN);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'] ?? null;
     $group_id = $_POST['group_id'] ?? null;
-
-    if ($name) {
+if ($name) {
         $stmt = $pdo->prepare(
         'INSERT INTO Groups (name) VALUES (?)'
         );
@@ -37,27 +36,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $new_group_id = $pdo->lastInsertId();
 
         $stmt = $pdo->prepare(
-            'INSERT INTO GroupMembers (user_id, group_id) VALUES (?, ?)'
+        'INSERT INTO GroupMembers (user_id, group_id) VALUES (?, ?)'
         );
 
-        $stmt->execute([$_SESSION['user_id'], $new_group_id]);
+        $stmt->execute([
+            $user_id,
+            $new_group_id
+        ]);
 
-        echo 'Gruppen har skapats!';
-
+        header('Location: groups.php');
+        exit;
     }
 
     if ($group_id) {
-
         $stmt = $pdo->prepare(
-            'INSERT INTO GroupApplications (user_id, group_id) VALUES (?, ?)'
+        'INSERT INTO GroupApplications (user_id, group_id)
+        VALUES (?, ?)'
         );
 
-        $stmt->execute([$user_id, $group_id]);
+        $stmt->execute([
+            $user_id,
+            $group_id
+        ]);
 
-        echo 'Din ansökan har skickats!';
-
+        header('Location: groups.php');
+        exit;
     }
 }
+
 
 $groups = $pdo->query(
     'SELECT * FROM Groups'
@@ -70,7 +76,7 @@ $groups = $pdo->query(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" href="style.css">
     <title><?php echo $page_name; ?> - Bloom  Belong</title>
 </head>
 
