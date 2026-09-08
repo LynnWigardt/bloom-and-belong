@@ -2,6 +2,11 @@
 
 session_start();
 
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 require_once 'db.php';
 
 $page_name = 'Diskussioner';
@@ -41,6 +46,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo 'Du måste fylla i alla fält';
 
+} else {
+
+    $stmt = $pdo->prepare(
+        'SELECT group_id
+         FROM GroupMembers
+         WHERE group_id = ?
+         AND user_id = ?'
+    );
+
+    $stmt->execute([
+        $group_id,
+        $user_id
+    ]);
+
+    $is_member = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if (!$is_member) {
+
+        echo 'Du måste vara medlem i gruppen för att kunna skapa en diskussion.';
+
     } else {
 
         $stmt = $pdo->prepare(
@@ -56,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         echo 'Diskussionen har skapats';
     }
+}
 }
 
 ?>
