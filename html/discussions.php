@@ -41,47 +41,54 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $subject = $_POST['subject'] ?? null;
     $group_id = $_POST['group_id'] ?? null;
-
-    if (empty($subject) || empty($group_id)) {
-
+    $content = $_POST['content'] ?? null;
+    if (empty($subject) || empty($group_id) || empty($content)) {
         echo 'Du måste fylla i alla fält';
-
-} else {
-
-    $stmt = $pdo->prepare(
-        'SELECT group_id
-         FROM GroupMembers
-         WHERE group_id = ?
-         AND user_id = ?'
-    );
-
-    $stmt->execute([
-        $group_id,
-        $user_id
-    ]);
-
-    $is_member = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    if (!$is_member) {
-
-        echo 'Du måste vara medlem i gruppen för att kunna skapa en diskussion.';
-
     } else {
-
         $stmt = $pdo->prepare(
-            'INSERT INTO Discussions (subject, group_id, user_id)
-             VALUES (?, ?, ?)'
+            'SELECT group_id
+             FROM GroupMembers
+             WHERE group_id = ?
+             AND user_id = ?'
         );
 
         $stmt->execute([
-            $subject,
             $group_id,
             $user_id
         ]);
 
-        echo 'Diskussionen har skapats';
+        $is_member = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$is_member) {
+            echo 'Du måste vara medlem i gruppen för att kunna skapa en diskussion.';
+        } else {
+            $stmt = $pdo->prepare(
+                'INSERT INTO Discussions (subject, group_id, user_id)
+                 VALUES (?, ?, ?)'
+            );
+
+            $stmt->execute([
+                $subject,
+                $group_id,
+                $user_id
+            ]);
+
+            $discussion_id = $pdo->lastInsertId();
+
+            $stmt = $pdo->prepare(
+                'INSERT INTO Posts (user_id, discussion_id, content)
+                 VALUES (?, ?, ?)'
+            );
+
+            $stmt->execute([
+                $user_id,
+                $discussion_id,
+                $content
+            ]);
+
+            echo 'Diskussionen har skapats';
+        }
     }
-}
 }
 
 ?>
@@ -93,7 +100,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+     <link rel="stylesheet" href="/style.css">
     <title><?php echo $page_name; ?> - Bloom & Belong</title>
 </head>
 <body>
@@ -118,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <select id="group_id" name="group_id" required>
 
     <?php foreach ($groups as $group): ?>
-
+    
         <option value="<?php echo $group['id']; ?>">
         <?php echo htmlspecialchars($group['name']); ?>
         </option>
@@ -126,6 +133,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <?php endforeach; ?>
 
     </select>
+    <label for="content">Inlägg:</label>
+    <textarea id="content" name="content" rows="5" placeholder="Skriv ditt inlägg här..." required></textarea>
 
     <button type="submit">Skapa diskussion</button>
 

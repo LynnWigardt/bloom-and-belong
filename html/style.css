@@ -38,18 +38,24 @@ h2 {
 
 form {
     background-color: #ffffff;
-    padding: 20px;
+    padding: 25px;
     border-radius: 8px;
     margin-bottom: 25px;
+    max-width: 600px;
+    box-sizing: border-box;
 }
 
 input,
 textarea,
 select {
-    padding: 8px;
-    margin: 5px 0 15px;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 6px 0 18px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-family: Arial, sans-serif;
 }
 
 button {
@@ -63,4 +69,8 @@ button {
 
 button:hover {
     opacity: 0.85;
+}
+
+textarea {
+    border: 5px solid red;
 }
