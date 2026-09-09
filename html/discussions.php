@@ -76,8 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $discussion_id = $pdo->lastInsertId();
 
             $stmt = $pdo->prepare(
-                'INSERT INTO Posts (user_id, discussion_id, content)
-                 VALUES (?, ?, ?)'
+                'INSERT INTO Posts (user_id, discussion_id, content, created_at)
+                 VALUES (?, ?, ?, NOW())'
             );
 
             $stmt->execute([
@@ -86,7 +86,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $content
             ]);
 
-            echo 'Diskussionen har skapats';
+            header('Location: discussions.php');
+            exit;
         }
     }
 }
@@ -112,7 +113,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <a href="applications.php">Medlemsansökningar</a>
         <a href="logout.php">Logga ut</a>
     </nav>
-
+    
+ <main>
     <h1><?php echo $page_name; ?></h1>
 
     <h2>Skapa en diskussion</h2>
@@ -155,6 +157,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </p>
 
         <?php endforeach; ?>
-
+    </main>
 </body>
 </html>

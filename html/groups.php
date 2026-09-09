@@ -117,7 +117,7 @@ $groups = $pdo->query(
     <?php else: ?>
     - Inte medlem
 
-    <form method="POST">
+    <form method="POST" class="application-form">
         <input type="hidden" name="group_id" value="<?php echo $group['id']; ?>">
         <button type="submit">Ansök om medlemskap</button>
     </form>

@@ -71,6 +71,13 @@ button:hover {
     opacity: 0.85;
 }
 
-textarea {
-    border: 5px solid red;
+.application-form {
+    display: inline;
+    background-color: transparent;
+    padding: 0;
+    margin: 0;
+}
+
+.application-form button {
+    margin-left: 10px;
 }
