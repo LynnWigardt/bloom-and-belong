@@ -102,9 +102,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
     <title><?php echo $page_name; ?> - Bloom & Belong</title>
 </head>
 <body>
+    <header>
+    <img src="header3.png" alt="Bloom & Belong">
+    </header>
 
     <nav>
         <a href="index.php">Hem</a>
@@ -116,6 +123,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
  <main>
     <h1><?php echo $page_name; ?></h1>
+
+    <div class="discussion-form">
 
     <h2>Skapa en diskussion</h2>
     <form method="POST">
@@ -141,10 +150,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <button type="submit">Skapa diskussion</button>
 
     </form>
+    </div>
 
 
     <?php foreach ($discussions as $discussion): ?>
-        
+   
+    <div class="discussion-item">
         <h2>
             <a href="discussion.php?id=<?php echo $discussion['id']; ?>">
                 <?php echo htmlspecialchars($discussion['subject']); ?>
@@ -155,8 +166,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             I gruppen
             <?php echo htmlspecialchars($discussion['name']); ?>
         </p>
+    
+    </div>
 
         <?php endforeach; ?>
     </main>
+
+<footer></footer>
+
 </body>
 </html>
