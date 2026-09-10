@@ -178,3 +178,28 @@ nav a:hover {
 .post small {
     color: #6b655c;
 }
+
+a {
+    color: #3e6f4c;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #24412c;
+}
+
+nav a {
+    color: white;
+}
+
+nav a:visited {
+    color: white;
+}
+
+nav a:hover {
+    color: white;
+}

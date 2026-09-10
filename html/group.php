@@ -68,6 +68,10 @@ $discussions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <body>
 
+<header>
+    <img src="header3.png" alt="Bloom & Belong">
+</header>
+
 <nav>
     <a href="index.php">Hem</a>
     <a href="groups.php">Grupper</a>
@@ -113,6 +117,8 @@ $discussions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <?php endif; ?>
 
 </main>
+
+<footer></footer>
 
 </body>
 </html>
