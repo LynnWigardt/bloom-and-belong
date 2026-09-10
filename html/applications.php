@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
+
 require_once 'db.php';
 
 $page_name = 'Medlemsansökningar';
@@ -9,6 +14,7 @@ $user_id = $_SESSION['user_id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $application_id = $_POST['application_id'];
+    
     $stmt = $pdo->prepare(
     'SELECT user_id, group_id FROM GroupApplications WHERE id = ?'
     );
@@ -16,8 +22,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$application_id]);
     $application = $stmt->fetch(PDO::FETCH_ASSOC);
 
+
+
     if ($application) {
-        $stmt = $pdo->prepare(
+
+      $stmt = $pdo->prepare(
+            'SELECT group_id
+             FROM GroupMembers
+             WHERE group_id = ?
+             AND user_id = ?'
+        );
+
+$stmt->execute([
+    $application['group_id'],
+    $user_id
+]);
+
+$is_member = $stmt->fetch(PDO::FETCH_ASSOC);
+
+if (!$is_member) {
+    echo 'Du har inte behörighet att godkänna denna ansökan.';
+    exit;
+}
+    $stmt = $pdo->prepare(
         'INSERT INTO GroupMembers (user_id, group_id) VALUES (?, ?)'
         );
 
