@@ -52,14 +52,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
-        <title><?php echo $page_name; ?> Bloom & Belong</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <title><?php echo $page_name; ?> - Bloom & Belong</title>
     </head>
 
     <body>
 
-    <h1>Skapa konto</h1>
+    <header>
+        <img src="header3.png" alt="Bloom & Belong">
+    </header>
 
-    <p>Välkommen till Bloom & Belong! Skapa ett konto för att kunna hänga med oss!</p>
+    <nav>
+        <a href="index.php">Hem</a>
+        <a href="login.php">Logga in</a>
+    </nav>
+
+    <main>
+
+        <h1>Skapa konto</h1>
+
+        <p>Välkommen till Bloom & Belong! Skapa ett konto för att kunna hänga med oss!</p>
 
     <form method="POST">
         <label for="first_name">Förnamn:</label>
@@ -80,6 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <button type="submit">Skapa konto</button>
     </form>
+    </main>
+    
+    <footer></footer>
 
     </body>
 </html>

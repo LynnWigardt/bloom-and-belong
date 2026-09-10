@@ -58,11 +58,13 @@ if (isset($_SESSION['user_id'])) {
 
     <p>En trygg och mysig plats för människor att mötas, dela intressen och hitta gemenskap</p>
 
+<?php if (!$user): ?>
+    <a href="register.php" class="register-button">Bli medlem</a>
+<?php endif; ?>
+
 <?php if ($user): ?>
-
     <p>Välkommen <?php echo htmlspecialchars($user['first_name']); ?>!</p>
-
-    <?php endif; ?>
+<?php endif; ?>
     
 </main>
 

@@ -81,6 +81,11 @@ $_SESSION['user_id'] = $user['id'];
     
 </form>
 
+<p>
+    Har du inget konto än?
+    <a href="register.php">Bli medlem</a>
+</p>
+
 </main>
 
 <footer></footer>

@@ -230,3 +230,23 @@ nav a:hover {
     margin: 0;
     color: #5f594f;
 }
+
+.register-button {
+    display: inline-block;
+    padding: 11px 18px;
+    border-radius: 8px;
+    background-color: #2d513f;
+    color: white;
+    font-size: 17px;
+    text-decoration: none;
+}
+
+.register-button:visited {
+    color: white;
+}
+
+.register-button:hover {
+    background-color: #234231;
+    color: white;
+    text-decoration: none;
+}
