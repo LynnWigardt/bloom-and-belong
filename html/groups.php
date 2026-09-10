@@ -122,8 +122,9 @@ $groups = $pdo->query(
 
     <div class="group-item">
 
-    <h3><a href="group.php?id=<?php echo $group['id']; ?>">
-        <?php echo htmlspecialchars($group['name']); ?></a>
+    <h3>
+    <a href="group.php?id=<?php echo $group['id']; ?>">
+    <?php echo htmlspecialchars($group['name']); ?></a>
     </h3>
 
     <?php if (in_array($group['id'], $member_groups)): ?>

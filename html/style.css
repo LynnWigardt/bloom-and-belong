@@ -147,3 +147,34 @@ nav a {
 nav a:hover {
     text-decoration: underline;
 }
+
+.discussion-form {
+    background-color: #f5eee0;
+    border-radius: 14px;
+    padding: 28px;
+    max-width: 560px;
+    box-sizing: border-box;
+    margin-bottom: 30px;
+}
+
+.post {
+    background-color: #f5eee0;
+    border-radius: 14px;
+    padding: 20px;
+    margin: 20px 0;
+    max-width: 700px;
+    box-sizing: border-box;
+}
+
+.post strong {
+    color: #2d513f;
+    font-size: 20px;
+}
+
+.post p {
+    margin: 10px 0;
+}
+
+.post small {
+    color: #6b655c;
+}

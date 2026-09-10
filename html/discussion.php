@@ -94,38 +94,39 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <a href="logout.php">Logga ut</a>
     </nav>
 
+<main>
+
     <h1><?php echo htmlspecialchars($discussion['subject']); ?></h1>
 
-    <p>
-        Grupp:
-        <?php echo htmlspecialchars($discussion['name']); ?>
-    </p>
+    <div class="discussion-form">
 
-    <h2>Skriv ett inlägg</h2>
+        <h2>Skriv ett inlägg</h2>
+        <form method="POST">
+            <textarea name="content" rows="5" cols="40" required></textarea>
+            <br>
+            <button type="submit">Publicera inlägg</button>
+        </form>
 
-    <form method="POST">
+    </div>
 
-    <textarea name="content" rows="5" cols="40" required></textarea>
-    <br>
-    <button type="submit">Publicera inlägg</button>
-    </form>
+    <h2>Inlägg</h2>
+    <?php foreach ($posts as $post): ?>
+        <div class="post">
+            <strong>
+                <?php echo htmlspecialchars($post['first_name']); ?>
+                <?php echo htmlspecialchars($post['last_name']); ?>
+            </strong>
+            <br>
+            Skrevs:
+            <?php echo htmlspecialchars($post['created_at']); ?>
+            <p>
+                <?php echo htmlspecialchars($post['content']); ?>
+            </p>
+        </div>
 
-<h2>Inlägg</h2>
-<?php foreach ($posts as $post): ?>
+    <?php endforeach; ?>
 
-<p>
-    <strong>
-        <?php echo htmlspecialchars($post['first_name']); ?>
-        <?php echo htmlspecialchars($post['last_name']); ?>
-    </strong>
-    <br>
-    Skrevs:
-        <?php echo htmlspecialchars($post['created_at']); ?>
-    <br>
-        <?php echo htmlspecialchars($post['content']); ?>
-</p>
-
-<?php endforeach; ?>
+</main>
 
 </body>
 </html>
