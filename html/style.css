@@ -1,47 +1,44 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: "Cormorant Garamond", Georgia, serif;
     margin: 0;
-    background-color: #f8f5f2;
+    background-color: #FEF9EA;
     color: #333;
-}
-
-nav {
-    background-color: #ffffff;
-    padding: 15px;
-    border-bottom: 1px solid #ddd;
-}
-
-nav a {
-    margin-right: 20px;
-    text-decoration: none;
-    color: #6b4f5f;
-    font-weight: bold;
-}
-
-nav a:hover {
-    text-decoration: underline;
 }
 
 main {
     max-width: 900px;
-    margin: 30px auto;
-    padding: 0 20px;
+    margin: 20px 0;
+    padding: 20px 30px;
 }
 
+
 h1 {
-    color: #6b4f5f;
+    font-size: 38px;
 }
 
 h2 {
-    color: #80616f;
+    font-size: 28px;
+}
+h3 {
+    font-size: 24px;
+}
+
+h1,
+h2,
+h3 {
+    color: #366042;
+}
+
+p {
+    font-size: 17px;
+    color: #27231e;
 }
 
 form {
-    background-color: #ffffff;
-    padding: 25px;
-    border-radius: 8px;
-    margin-bottom: 25px;
-    max-width: 600px;
+    background-color: #f5eee0;
+    border-radius: 14px;
+    padding: 28px;
+    max-width: 560px;
     box-sizing: border-box;
 }
 
@@ -53,31 +50,100 @@ select {
     box-sizing: border-box;
     padding: 10px;
     margin: 6px 0 18px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-family: Arial, sans-serif;
+    border: 1px solid #d8cdbb;
+    border-radius: 8px;
+    font-family: inherit;
+    background-color: #fffaf0;
 }
 
 button {
-    padding: 9px 16px;
+    padding: 11px 18px;
     border: none;
-    border-radius: 5px;
-    background-color: #6b4f5f;
+    border-radius: 8px;
+    background-color: #2d513f;
     color: white;
     cursor: pointer;
+    font-family: inherit;
+    font-size: 17px;
 }
 
 button:hover {
-    opacity: 0.85;
+    background-color: #234231;
 }
 
 .application-form {
     display: inline;
     background-color: transparent;
     padding: 0;
-    margin: 0;
+    margin: 6px 0 0;
 }
 
 .application-form button {
     margin-left: 10px;
+}
+
+.group-item {
+    margin: 22px 0;
+}
+
+.group-item h3 {
+    margin: 0 0 2px;
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 24px;
+    color: #2d513f;
+}
+
+.group-item h3 a {
+    color: #2d513f;
+    text-decoration: none;
+}
+
+.group-item h3 a:hover {
+    text-decoration: underline;
+}
+
+.group-status {
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: #5f594f;
+}
+
+header {
+    margin: 0;
+    padding: 0;
+}
+
+header img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+footer {
+    width: 100%;
+    min-height: 320px;
+    padding: 40px 30px;
+    box-sizing: border-box;
+    background-color: #f8f5f2;
+    background-image: url("footer2.png");
+    background-size: 100% auto;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    text-align: center;
+}
+
+nav {
+    background-color: #284B3A;
+    padding: 15px 25px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin-right: 25px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
 }
