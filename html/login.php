@@ -40,17 +40,34 @@ $_SESSION['user_id'] = $user['id'];
 <!DOCTYPE html>
 <html lang="sv">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
-        <title><?php echo $page_name; ?> Bloom & Belong</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<title><?php echo $page_name; ?> - Bloom & Belong</title>
     </head>
 
     <body>
 
+    <header>
+    <img src="header3.png" alt="Bloom & Belong">
+    </header>
+
+    <nav>
+    <a href="index.php">Hem</a>
+    <a href="groups.php">Grupper</a>
+    <a href="discussions.php">Diskussioner</a>
+    <a href="login.php">Logga in</a>
+    </nav>
+
+    <main>
+
     <h1><?php echo $page_name; ?></h1>
 
-<form method="POST">
+    <form method="POST">
 
     <label for="email">E-mail:</label>
     <input type="email" id="email" name="email" required>
@@ -63,6 +80,10 @@ $_SESSION['user_id'] = $user['id'];
     <button type="submit">Logga in</button>
     
 </form>
+
+</main>
+
+<footer></footer>
 
     </body>
     </html>
